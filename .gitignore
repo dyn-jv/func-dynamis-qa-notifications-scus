@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+.env
+local.settings.json
+out/*.zip
+out/replay-*

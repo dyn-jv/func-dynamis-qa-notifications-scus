@@ -1,0 +1,131 @@
+{
+
+  "metadata": {
+
+    "schemaVersion": "1.0",
+
+    "messageType": "DYN-TELEMETRY",
+
+    "sourceSystem": "AZURE"
+
+  },
+
+  "context": {
+
+    "alarmId": "dyn-dt35-001",
+
+    "businessUnitId": "DYN",
+
+    "customerId": "01",
+    
+    "fleetId": "FLT-12",
+
+    //We do not use/have this.
+    "equipmentId": "--",
+
+    "assetId": "01-101",
+
+    "assetSubSystemId": "GENERATOR",
+    
+    //Usually in controls this is alphanumeric, no dashes, some sensors may be all text- depends on the unit type.
+    "sensorId": "PT8",
+
+    //We do not use/have this.
+    "deviceId": "--",
+
+    //We do not use/have this.
+    "linePosition": "--",
+
+    "headNumber": "2",
+    
+    //Unit number can be misleading, in dynamis- usually suffixed by unit class e.g dt35-1, or dt17-1, having just unit numbers will conflict
+    "unitNumber": "DT_35-25",
+
+    //We do not use/have this.
+    "topologyPath": "--",
+
+    "eventTimestamp": "2026-07-30T09:13:45.503Z"
+
+  },
+
+  "alarm": {
+
+    "category": "52G",
+
+    "type": "Digital",
+
+    "reasonCode": "BREAKER_STATUS",
+
+    "title": "552G Open",
+
+    "description": "52G Breaker Trip",
+
+    "priority": "P1",
+
+    "severity": "Critical",
+
+    "status": "Open"
+
+  },
+
+  "telemetry": {
+
+    "status": 0, 
+
+    "pressure": null,
+
+    "temperatureDegF": null,
+
+    "rpm": null,
+
+    "torque": null,
+
+    "torquePercent": null,
+
+    "vibration": null,
+
+    "megawatts": null,
+
+    "powerOutputAmps": null,
+
+    "barrelsPerMinute": null,
+
+    "barrelsPerMinuteClean": null,
+
+    "barrelsPerMinuteSlurry": null,
+
+    "pumpingVolumeClean": null,
+
+    "pumpingVolumeSlurry": null,
+
+    "proppant": null
+
+
+// we could add/remove other attribute if missing
+  },
+
+  "prediction": {
+
+    "predictionCode": null,
+
+    "failureWithinDays": null,
+
+    "failureProbability": null,
+
+    "predictionWindow": null,
+
+    "modelVersion": null
+
+  },
+
+  "rawPayload": {
+
+              "encoding": "Base64",
+               "content": "ewogICJtZXNzYWdlIjogIkVWTyBQdWxzZSAtIFtDUklUSUNBTF0gRmxlZXQgMTIgLSBGLTEyLVAtMTEtSC0yIC0gVmlicmF0aW9uIFRocmVzaG9sZCBFeGNlZWRlZCIs..."
+
+     // we can add raw message here in base64 string
+
+  }
+
+  }
+

@@ -1,0 +1,14 @@
+.venv/
+.git/
+.agents/
+.codex/
+.aws/
+__pycache__/
+tests/
+out/
+local.settings.json
+.env
+notes.md
+replay_52g.py
+queries/
+verify_deployment.py

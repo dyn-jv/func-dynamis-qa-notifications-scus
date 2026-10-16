@@ -1,0 +1,41 @@
+// Shared by historical replay and synthetic ADX tests.
+let Detect52G = (T:(timestamp:datetime, UNIT_NUM:string, Breaker:long, Speed:real)) {
+    let Deduplicated = materialize(T
+        | summarize Copies=count() by timestamp, UNIT_NUM, Breaker, Speed);
+    let Normalized = materialize(Deduplicated
+        | summarize RawSamples=sum(Copies), Variants=count(),
+            Values=make_list(bag_pack("breaker", Breaker, "speed", Speed)) by UNIT_NUM, timestamp
+        | extend Breaker=tolong(Values[0].breaker), Speed=toreal(Values[0].speed)
+        | extend Valid=Variants == 1 and isnotnull(timestamp) and isnotempty(UNIT_NUM)
+            and isnotnull(Breaker) and Breaker in (0, 1)
+        | sort by UNIT_NUM asc, timestamp asc
+        | extend PreviousUnit=prev(UNIT_NUM), PreviousTimestamp=prev(timestamp),
+            PreviousBreaker=prev(Breaker), PreviousSpeed=prev(Speed), PreviousValid=prev(Valid)
+        | extend SameUnit=UNIT_NUM == PreviousUnit,
+            GapSeconds=(timestamp - PreviousTimestamp) / 1s
+        | extend Opening=SameUnit and Valid and PreviousValid and PreviousBreaker == 1 and Breaker == 0
+        | extend Classification=case(not(Opening), "", GapSeconds > 5, "uncertain",
+            isnull(PreviousSpeed) or not(isfinite(PreviousSpeed)), "uncertain",
+            PreviousSpeed < 7000, "not_running", "qualified")
+        | extend Reason=case(not(Opening), "", GapSeconds > 5, "telemetry_gap",
+            isnull(PreviousSpeed) or not(isfinite(PreviousSpeed)), "missing_or_invalid_previous_nggsel",
+            PreviousSpeed < 7000, "previous_nggsel_below_7000", "opening_while_running"));
+    let Events = Normalized | where Opening
+        | project Kind="event", Data=bag_pack("unit", UNIT_NUM, "timestamp", timestamp,
+            "previous_timestamp", PreviousTimestamp, "breaker", Breaker, "previous_breaker", PreviousBreaker,
+            "nggsel", Speed, "previous_nggsel", PreviousSpeed, "gap_seconds", GapSeconds,
+            "classification", Classification, "reason", Reason);
+    let Quality = Normalized | where not(Valid)
+        | project Kind="quality", Data=bag_pack("unit", UNIT_NUM, "timestamp", timestamp,
+            "reason", case(Variants > 1, "conflicting_duplicates", isempty(UNIT_NUM), "missing_unit",
+                isnull(timestamp), "missing_timestamp", "invalid_breaker"), "values", Values);
+    let Summary = Normalized | summarize raw_samples=sum(RawSamples), readings=count(),
+        duplicates_collapsed=sum(RawSamples-Variants), data_quality_issues=countif(not(Valid)),
+        candidates=countif(Opening), qualified=countif(Classification == "qualified"),
+        not_running=countif(Classification == "not_running"), uncertain=countif(Classification == "uncertain") by UNIT_NUM
+        | project Kind="summary", Data=bag_pack("unit", UNIT_NUM, "raw_samples", raw_samples,
+            "readings", readings, "duplicates_collapsed", duplicates_collapsed,
+            "data_quality_issues", data_quality_issues, "candidates", candidates,
+            "qualified", qualified, "not_running", not_running, "uncertain", uncertain);
+    union Events, Quality, Summary
+};
