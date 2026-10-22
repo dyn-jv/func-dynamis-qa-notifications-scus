@@ -1,0 +1,4 @@
+azure-servicebus==7.14.3
+azure-identity>=1.17,<2
+websocket-client>=1.6,<2
+azure-functions>=1.21,<2

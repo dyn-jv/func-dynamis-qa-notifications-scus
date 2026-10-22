@@ -1,3 +1,6 @@
+For the exact original cloud test sender, payload and acceptance evidence, see
+[October 15 manual test](docs/manual-test-2026-10-15/README.md).
+
 # Historical 52G replay
 
 The current milestone is **read-only historical validation**, not live alerts.

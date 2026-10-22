@@ -1,0 +1,61 @@
+{
+  "metadata": {
+    "schemaVersion": "1.0",
+    "messageType": "DYN-TELEMETRY",
+    "sourceSystem": "AZURE"
+  },
+  "context": {
+    "alarmId": "dyn-dt35-001",
+    "businessUnitId": "DYN",
+    "customerId": "01",
+    "fleetId": "FLT-12",
+    "equipmentId": "--",
+    "assetId": "01-101",
+    "assetSubSystemId": "GENERATOR",
+    "sensorId": "52G",
+    "deviceId": "--",
+    "linePosition": "--",
+    "headNumber": "2",
+    "unitNumber": "DT_35-25",
+    "topologyPath": "--",
+    "eventTimestamp": "2026-10-15T22:51:05.407Z"
+  },
+  "alarm": {
+    "category": "52G",
+    "type": "Digital",
+    "reasonCode": "BREAKER_STATUS",
+    "title": "52G Open",
+    "description": "Manual test: 52G breaker open",
+    "priority": "P1",
+    "severity": "Critical",
+    "status": "Open"
+  },
+  "telemetry": {
+    "status": 1,
+    "pressure": null,
+    "temperatureDegF": null,
+    "rpm": null,
+    "torque": null,
+    "torquePercent": null,
+    "vibration": null,
+    "megawatts": null,
+    "powerOutputAmps": null,
+    "barrelsPerMinute": null,
+    "barrelsPerMinuteClean": null,
+    "barrelsPerMinuteSlurry": null,
+    "pumpingVolumeClean": null,
+    "pumpingVolumeSlurry": null,
+    "proppant": null
+  },
+  "prediction": {
+    "predictionCode": null,
+    "failureWithinDays": null,
+    "failureProbability": null,
+    "predictionWindow": null,
+    "modelVersion": null
+  },
+  "rawPayload": {
+    "encoding": "Base64",
+    "content": "eyJ0ZXN0IjogdHJ1ZSwgIjUyRyI6IDF9"
+  }
+}

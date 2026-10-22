@@ -1,0 +1,16 @@
+{
+  "functionApp": "func-dynamis-qa-notifications-scus",
+  "deploymentId": "10fe1549-2f60-4cc6-a9f6-64c4f07ad49a",
+  "endpoint": "https://func-dynamis-qa-notifications-scus-cqchaeejegetgkeq.southcentralus-01.azurewebsites.net/api/notification-test",
+  "unauthenticatedStatus": 401,
+  "previewVerified": true,
+  "sendStatus": "accepted",
+  "topic": "power-azureiot-alert",
+  "namespace": "sb-qa-scus-5uhjokcqxur5g.servicebus.windows.net",
+  "identityClientId": "7e2dcba0-2e52-4b1f-b715-f708b56a0211",
+  "messageId": "8fe1fd68-b7c3-4333-8540-dcd077bad48b",
+  "eventTimestamp": "2026-10-15T22:51:05.407Z",
+  "alarmId": "dyn-dt35-001",
+  "unitNumber": "DT_35-25",
+  "galaxyProcessingVerified": false
+}
